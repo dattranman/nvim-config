@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/dattran/go/src/service-init-cache/serv/module/live_tv'
+let g:netrw_dirhist_4='/home/dattran/go/src/service-migrate-data'
+let g:netrw_dirhist_3='/home/dattran/go/src/service-migrate-data/serv/module'
+let g:netrw_dirhist_2='/home/dattran/go/src/service-migrate-data/serv'
+let g:netrw_dirhist_1='/home/dattran/go/src/service-migrate-data'
+let g:netrw_dirhist_0='/home/dattran/go/src/service-migrate-data/serv'
+let g:netrw_dirhist_9='/home/dattran/go/src/service-migrate-data/serv/module'
+let g:netrw_dirhist_8='/home/dattran/go/src/service-migrate-data/serv/module/live_tv'
+let g:netrw_dirhist_7='/home/dattran/go/src/service-migrate-data/serv/module'
+let g:netrw_dirhist_6='/home/dattran/go/src/service-migrate-data/serv'
