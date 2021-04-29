@@ -5,7 +5,7 @@ set noswapfile
 set ruler
 set mouse=a
 " set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-
+set shortmess-=S
 " =============set auto change
 set autoread
 autocmd FocusGained * checktime
@@ -34,7 +34,10 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ TIME:\ %{strft
 let mapleader=","
 
 call plug#begin()
-	Plug 'vim-airline/vim-airline'
+    Plug 'puremourning/vimspector'
+    Plug 'sebdah/vim-delve'
+    Plug 'preservim/nerdcommenter'
+    Plug 'vim-airline/vim-airline'
     Plug 'tomasiser/vim-code-dark'
     Plug 'jacoborus/tender.vim'
 	Plug 'vim-airline/vim-airline-themes'
@@ -71,7 +74,9 @@ let g:session_command_aliases = 1
 let g:session_autosave_periodic = 1
 
 " fzf
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 noremap <C-p> :FZF<CR>
+
 ""let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.5, 'highlight': 'Comment' } }
 let g:fzf_layout = {'down':'40%'}
 noremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
@@ -96,6 +101,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
+let NERDTreeShowHidden=1
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
