@@ -42,9 +42,9 @@ call plug#begin()
     Plug 'jacoborus/tender.vim'
 	Plug 'vim-airline/vim-airline-themes'
 	Plug 'fatih/vim-go',
-	Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'neoclide/coc.nvim',  {'branch': 'release'}
 	Plug 'junegunn/fzf.vim'
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'scrooloose/nerdtree'
 	Plug 'jistr/vim-nerdtree-tabs'
     Plug 'airblade/vim-gitgutter'
@@ -53,7 +53,7 @@ call plug#begin()
     Plug 'eugen0329/vim-esearch'
 	"" Vim-Session
 	Plug 'xolox/vim-misc'
-	Plug 'xolox/vim-session'
+    Plug 'xolox/vim-session'
 call plug#end()
 
 "" Use modeline overrides
@@ -70,8 +70,8 @@ let g:lightline = { 'colorscheme': 'tenderplus' }
 let g:session_directory = "~/.config/nvim/session"
 let g:session_autoload = "yes"
 let g:session_autosave = "yes"
-let g:session_command_aliases = 1
-let g:session_autosave_periodic = 1
+let g:session_verbose_messages = 0
+let g:session_autosave_to = 'default'
 
 " fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
@@ -136,6 +136,7 @@ let g:go_fmt_command = "goimports"
 noremap <F12> :GoDef<CR>
 
 " vim-airline
+let g:airline#extensions#tabline#fnamemod = ':t'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -173,15 +174,6 @@ endif
 
 set background=dark
 let t:is_transparent = 0
-" function Toggle_transparent()
-"     if t:is_transparent == 0
-"         hi Normal guibg=NONE ctermbg=NONE
-"         let t:is_transparent = 1
-"     elseif t:is_transparent == 1
-"         set background=dark
-"         let t:is_tranparent = 0
-"     endif
-" endfunction
 function! Toggle_transparent()                                                       
   if t:is_transparent == 0                                                                      
     hi Normal guibg=#111111 ctermbg=black                                                       
@@ -201,35 +193,6 @@ let g:ackprg = 'ag --vimgrep'
  map  <c-f>      <Plug>(operator-esearch-prefill)
  
  let g:esearch = {}
- 
- " Use regex matching with the smart case mode by default and avoid matching text-objects.
- " let g:esearch.regex   = 1
- " let g:esearch.textobj = 0
- " let g:esearch.case    = 'smart'
- " 
- " " Set the initial pattern content using the highlighted '/' pattern (if
- " " v:hlsearch is true), the last searched pattern or the clipboard content.
- " let g:esearch.prefill = ['hlsearch', 'last', 'clipboard']
- " 
- " " Override the default files and directories to determine your project root. Set it
- " " to blank to always use the current working directory.
- " let g:esearch.root_markers = ['.git', 'Makefile', 'node_modules']
- " 
- " " Prevent esearch from adding any default keymaps.
- " let g:esearch.default_mappings = 0
- " 
- " " Start the search only when the enter is hit instead of updating the pattern while you're typing.
- " let g:esearch.live_update = 0
- " 
- " " Open the search window in a vertical split and reuse it for all further searches.
- " let g:esearch.name = '[esearch]'
- " let g:esearch.win_new = {esearch -> esearch#buf#goto_or_open(esearch.name, 'vnew')}
- " 
- " " Redefine the default highlights (see :help highlight and :help esearch-appearance)
- " highlight      esearchHeader     cterm=bold gui=bold ctermfg=white ctermbg=white
- " highlight link esearchStatistics esearchFilename
- " highlight link esearchFilename   Label
- " highlight      esearchMatch      ctermbg=27 ctermfg=15 guibg='#005FFF' guifg='#FFFFFF'
   autocmd User esearch_win_config
     \  let b:autopreview = esearch#async#debounce(b:esearch.preview_open, 100)
     \| autocmd CursorMoved <buffer> call b:autopreview.apply({'align': 'right'})
