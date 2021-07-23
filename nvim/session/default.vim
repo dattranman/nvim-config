@@ -1,6 +1,6 @@
 " ~/.config/nvim/session/default.vim:
 " Vim session script.
-" Created by session.vim 2.13.1 on 18 July 2021 at 00:03:35.
+" Created by session.vim 2.13.1 on 24 July 2021 at 01:12:09.
 " Open this file in Vim and run :source % to restore your session.
 
 if exists('g:syntax_on') != 1 | syntax on | endif
@@ -17,17 +17,23 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/go/src/golang-starter
+cd ~/.config/nvim
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
+badd +1 ~/.config/nvim
+badd +68 plug.vim
+badd +1 after/plugin/nerdtree.rc.vim
+badd +0 ./after/plugin/airline.rc.vim
+badd +0 ./after/plugin/esearch.rc.vim
 argglobal
 %argdel
-$argadd .
+$argadd ~/.config/nvim
 argglobal
 enew
 " file NERD_tree_1
+balt plug.vim
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -57,7 +63,7 @@ nohlsearch
 tabnext 1
 let s:bufnr_save = bufnr("%")
 let s:cwd_save = getcwd()
-NERDTree ~/go/src/golang-starter
+NERDTree ~/.config/nvim
 if !getbufvar(s:bufnr_save, '&modified')
   let s:wipebuflines = getbufline(s:bufnr_save, 1, '$')
   if len(s:wipebuflines) <= 1 && empty(get(s:wipebuflines, 0, ''))
