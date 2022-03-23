@@ -20,11 +20,13 @@ call plug#begin()
 	"" Vim-Session
 	Plug 'xolox/vim-misc'
     Plug 'xolox/vim-session'
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'joshdick/onedark.vim'
     if has("nvim")
         Plug 'neovim/nvim-lspconfig'
+        "  Plug 'nvim-lua/completion-nvim'
         Plug 'glepnir/lspsaga.nvim'
         Plug 'folke/lsp-colors.nvim'
-        Plug 'nvim-lua/completion-nvim'
         Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
         Plug 'kristijanhusak/defx-git'
         Plug 'kristijanhusak/defx-icons'
@@ -33,7 +35,21 @@ call plug#begin()
         Plug 'nvim-lua/popup.nvim'
         Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
+        Plug 'hrsh7th/vim-vsnip'
+        Plug 'hrsh7th/vim-vsnip-integ'
         Plug 'kyazdani42/nvim-tree.lua'
+        "" Vim completion
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/cmp-buffer'
+        Plug 'hrsh7th/cmp-path'
+        Plug 'hrsh7th/cmp-cmdline'
+        Plug 'hrsh7th/nvim-cmp'
+        Plug 'onsails/lspkind-nvim'
+        " For vsnip users.
+        Plug 'hrsh7th/cmp-vsnip'
+        Plug 'hrsh7th/vim-vsnip'
+        " nvim-transparent
+        Plug 'xiyaowong/nvim-transparent'
     end
 call plug#end()
 
@@ -44,9 +60,15 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-colorscheme codedark
-let g:airline_theme = 'tender'
-let g:lightline = { 'colorscheme': 'tenderplus' }
+syntax on
+"colorscheme codedark
+colorscheme onedark
+"let g:airline_theme = 'tender'
+let g:airline_theme = 'onedark'
+"let g:lightline = { 'colorscheme': 'tenderplus' }
+let g:lightline = { 'colorscheme': 'onedark' }
+
+noremap <C-z><C-x> :TransparentToggle<CR>
 
 " session management
 let g:session_directory = "~/.config/nvim/session"
