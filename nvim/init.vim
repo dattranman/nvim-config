@@ -47,7 +47,7 @@ function! Toggle_transparent()
 endfunction
 noremap <C-z><C-x> :call Toggle_transparent()<CR>
 noremap <C-s> :w <CR>
-
+set clipboard=unnamed,unnamedplus
 "" Copy/Paste/Cut
 if has('unnamedplus')
   set clipboard=unnamed,unnamedplus

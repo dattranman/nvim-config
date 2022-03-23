@@ -5,7 +5,7 @@ endif
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local protocol = require('vim.lsp.protocol')
-
+local util = require('lspconfig/util')
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -42,8 +42,7 @@ local on_attach = function(client, bufnr)
         vim.api.nvim_command [[augroup END]]
     end
 
-    require'completion'.on_attach(client, bufnr)
-
+--    require'completion'.on_attach(client, bufnr)
     --protocol.SymbolKind = { }
     protocol.CompletionItemKind = {
         '', -- Text
@@ -72,13 +71,85 @@ local on_attach = function(client, bufnr)
         'ﬦ', -- Operator
         '', -- TypeParameter
     }
+--    require('lspkind').init({
+--        -- DEPRECATED (use mode instead): enables text annotations
+--        --
+--        -- default: true
+--        -- with_text = true,
+--
+--        -- defines how annotations are shown
+--        -- default: symbol
+--        -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+--        mode = 'symbol_text',
+--
+--        -- default symbol map
+--        -- can be either 'default' (requires nerd-fonts font) or
+--        -- 'codicons' for codicon preset (requires vscode-codicons font)
+--        --
+--        -- default: 'default'
+--        preset = 'codicons',
+--
+--        -- override preset symbols
+--        --
+--        -- default: {}
+--        symbol_map = {
+--          Text = "",
+--          Method = "",
+--          Function = "",
+--          Constructor = "",
+--          Field = "ﰠ",
+--          Variable = "",
+--          Class = "ﴯ",
+--          Interface = "",
+--          Module = "",
+--          Property = "ﰠ",
+--          Unit = "塞",
+--          Value = "",
+--          Enum = "",
+--          Keyword = "",
+--          Snippet = "",
+--          Color = "",
+--          File = "",
+--          Reference = "",
+--          Folder = "",
+--          EnumMember = "",
+--          Constant = "",
+--          Struct = "פּ",
+--          Event = "",
+--          Operator = "",
+--          TypeParameter = ""
+--        },
+--    })
 end
 
-nvim_lsp.gopls.setup{
+nvim_lsp.gopls.setup {
+    cmd = {"gopls"},
+    filetypes = {"go", "gomod"},
+    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    },
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-}
-
+  }
+function OrgImports(wait_ms)
+    local params = vim.lsp.util.make_range_params()
+    params.context = {only = {"source.organizeImports"}}
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
+    for _, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          vim.lsp.util.apply_workspace_edit(r.edit)
+        else
+          vim.lsp.buf.execute_command(r.command)
+        end
+      end
+    end
+  end
 EOF
+
+autocmd BufWritePre *.go lua OrgImports(1000)
