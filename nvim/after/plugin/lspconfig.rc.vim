@@ -123,15 +123,16 @@ local on_attach = function(client, bufnr)
 end
 
 nvim_lsp.gopls.setup {
-    cmd = {"gopls"},
+    cmd = {"gopls", '--remote=auto'},
     filetypes = {"go", "gomod"},
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    single_file_support = false,
     settings = {
       gopls = {
         analyses = {
           unusedparams = true,
         },
-        staticcheck = true,
+        staticcheck = false,
       },
     },
     on_attach = on_attach,

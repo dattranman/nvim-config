@@ -20,8 +20,9 @@ call plug#begin()
 	"" Vim-Session
 	Plug 'xolox/vim-misc'
     Plug 'xolox/vim-session'
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    "Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     Plug 'joshdick/onedark.vim'
+    Plug 'terryma/vim-multiple-cursors'
     if has("nvim")
         Plug 'neovim/nvim-lspconfig'
         "  Plug 'nvim-lua/completion-nvim'
@@ -34,6 +35,7 @@ call plug#begin()
         Plug 'ryanoasis/vim-devicons'
         Plug 'nvim-lua/popup.nvim'
         Plug 'nvim-lua/plenary.nvim'
+        Plug 'folke/todo-comments.nvim'
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'hrsh7th/vim-vsnip'
         Plug 'hrsh7th/vim-vsnip-integ'
